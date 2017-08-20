@@ -132,7 +132,7 @@ app.post("/articles/:id", function(req, res) {
   var newNote = new Note(req.body);
 
   // And save the new note the db
-  newNote.save(function(error, doc) {
+  new Note.save(function(error, doc) {
     // Log any errors
     if (error) {
       console.log(error);
@@ -155,7 +155,15 @@ app.post("/articles/:id", function(req, res) {
     }
   });
 });
-
+app.get("/notes", function(req,res){
+  Note.find({}, function(error, doc){
+    if (error) {
+      console.log(error);
+    } else {
+      res.json(doc);
+    }
+  });
+});
 
 // Listen on port 3000
 app.listen(PORT, function() {
