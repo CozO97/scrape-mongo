@@ -12,6 +12,9 @@ var Article = require("./models/Article.js");
 // Our scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
+
+var PORT = 3000 || process.env.PORT;
+
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
@@ -45,6 +48,10 @@ db.once("open", function() {
 
 // Routes
 // ======
+
+app.get("/", function(req,res) {
+  res.sendFile(__dirname + "/public/index.html");
+})
 
 // A GET request to scrape the echojs website
 app.get("/scrape", function(req, res) {
@@ -151,6 +158,6 @@ app.post("/articles/:id", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log("App running on port 3000!");
 });
